@@ -45,6 +45,9 @@ ament_target_dependencies(add2ints_server rclcpp example_interfaces)
 add_executable(address_books src/my_pub_address_book.cpp)
 ament_target_dependencies(address_books rclcpp)
 
+add_executable(parameterr src/cpp_parameters_node.cpp)
+ament_target_dependencies(parameterr rclcpp)
+
 rosidl_get_typesupport_target(cpp_typesupport_target
   ${PROJECT_NAME} rosidl_typesupport_cpp)
 target_link_libraries(address_books "${cpp_typesupport_target}")
@@ -60,7 +63,13 @@ install(TARGETS
   listener
   add2ints_server
   address_books
+  parameterr
   DESTINATION lib/${PROJECT_NAME})
+
+  install(
+    DIRECTORY launch
+    DESTINATION share/${PROJECT_NAME}
+  )
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
